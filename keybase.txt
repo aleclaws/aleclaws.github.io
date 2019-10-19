@@ -52,3 +52,59 @@ appending to this document.
 View my publicly-auditable identity here: https://keybase.io/aleclaws
 
 ==================================================================
+==================================================================
+https://keybase.io/aleclawsid
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://aleclaws.com
+  * I am aleclawsid (https://keybase.io/aleclawsid) on keybase.
+  * I have a public key ASBQVMpEU24lu4YhaZXl401oU52QAMBqd5S7r6pDvDatCgo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "01205054ca44536e25bb86216995e5e34d68539d9000c06a7794bbafaa43bc36ad0a0a",
+      "host": "keybase.io",
+      "kid": "01205054ca44536e25bb86216995e5e34d68539d9000c06a7794bbafaa43bc36ad0a0a",
+      "uid": "5a81827c66a7845462e90a6f64313919",
+      "username": "aleclawsid"
+    },
+    "merkle_root": {
+      "ctime": 1571493001,
+      "hash": "887531db6281e8ebc81ffb8ef820a747bd2c6e4178cc11fc48c43288b75aa371ab41d1324405a34cd693842251b89ba26f93d3f3c44143fe7449f3a65d4a683e",
+      "hash_meta": "97e7b8d27c4863cb8c9ee319f8a140d17018b9a8a56679ae2aafd94bdf01d1ca",
+      "seqno": 8242354
+    },
+    "service": {
+      "entropy": "HKNrh0uWk4Yl5MQp7bR7eFy8",
+      "hostname": "aleclaws.com",
+      "protocol": "http:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "4.6.0"
+  },
+  "ctime": 1571493007,
+  "expire_in": 504576000,
+  "prev": "2f580cc4d2b167b66dad273c2a7dae0333a41a5231d56dccfde03f882029457f",
+  "seqno": 11,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgUFTKRFNuJbuGIWmV5eNNaFOdkADAaneUu6+qQ7w2rQoKp3BheWxvYWTESpcCC8QgL1gMxNKxZ7ZtrSc8Kn2uAzOkGlIx1W3M/eA/iCApRX/EILRma+Xd00tAUv/516XR2MQ9jNCKSoZ1FBWe/vx1ajAJAgHCo3NpZ8RAnUtUhPntYZpJJJaayEzUHLoaq10Q27ePiZeyzz1WgNKNsVYffcJXY3rtY6AlmChMnrzeD00XRdf5+4qKTav5AahzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIMTJLpZgk+Hy0mrm3Rdq0HaqZ/yl988Z0bXNu0VRo9b/o3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/aleclawsid
+
+==================================================================
