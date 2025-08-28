@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10K Training Plan - Complete TSS Analysis</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+```
+    .container {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        padding: 40px;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    
+    .header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    
+    .header h1 {
+        margin: 0;
+        font-size: 3em;
+        background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 800;
+    }
+    
+    .header p {
+        color: #666;
+        font-size: 18px;
+        margin: 10px 0;
+    }
+    
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+    
+    .stat-card {
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+        color: white;
+        font-weight: 600;
+    }
+    
+    .current-fitness {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .target-race {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+    
+    .peak-fitness {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    }
+    
+    .race-day-form {
+        background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    }
+    
+    .section {
+        margin: 40px 0;
+    }
+    
+    .section h2 {
+        color: #333;
+        border-left: 5px solid #667eea;
+        padding-left: 15px;
+        margin-bottom: 20px;
+    }
+    
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 12px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        border-radius: 15px;
+        overflow: hidden;
+    }
+    
+    th {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 15px 8px;
+        text-align: center;
+        font-weight: 700;
+        font-size: 14px;
+    }
+    
+    td {
+        padding: 12px 6px;
+        text-align: center;
+        border-bottom: 1px solid #f0f0f0;
+        vertical-align: middle;
+        font-size: 11px;
+    }
+    
+    .date-col {
+        background: #f8f9ff;
+        font-weight: 600;
+        color: #333;
+        width: 80px;
+    }
+    
+    .workout-col {
+        width: 200px;
+    }
+    
+    .metrics-col {
+        width: 120px;
+        font-family: 'Courier New', monospace;
+    }
+    
+    .easy-run {
+        background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        border-radius: 6px;
+        padding: 8px;
+        margin: 1px;
+    }
+    
+    .tempo-run {
+        background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        border-radius: 6px;
+        padding: 8px;
+        margin: 1px;
+    }
+    
+    .speed-work {
+        background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+        border-radius: 6px;
+        padding: 8px;
+        margin: 1px;
+    }
+    
+    .rest-day {
+        background: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
+        border-radius: 6px;
+        padding: 8px;
+        margin: 1px;
+        color: #666;
+    }
+    
+    .race-day {
+        background: linear-gradient(135deg, #FF6B6B 0%, #FFE66D 100%);
+        border-radius: 6px;
+        padding: 12px;
+        margin: 1px;
+        color: white;
+        font-weight: bold;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+    
+    .long-run {
+        background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+        border-radius: 6px;
+        padding: 8px;
+        margin: 1px;
+        color: white;
+    }
+    
+    .positive-tsb {
+        color: #22c55e;
+        font-weight: bold;
+    }
+    
+    .negative-tsb {
+        color: #ef4444;
+        font-weight: bold;
+    }
+    
+    .neutral-tsb {
+        color: #6b7280;
+    }
+    
+    .week-separator {
+        height: 3px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .legend {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin: 25px 0;
+        flex-wrap: wrap;
+    }
+    
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 12px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        background: #f8f9ff;
+    }
+    
+    .legend-color {
+        width: 15px;
+        height: 15px;
+        border-radius: 3px;
+    }
+</style>
+```
+
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏃‍♂️ 10K Training Plan</h1>
+            <p>Race Date: <strong>Saturday, September 20th</strong></p>
+            <p>Target: <strong>Sub-65 minutes (6:30-6:45/km pace)</strong></p>
+        </div>
+
+```
+    <div class="stats-grid">
+        <div class="stat-card current-fitness">
+            <h3>Current Fitness</h3>
+            <p>CTL: 36 | ATL: 46<br>TSB: -10</p>
+        </div>
+        <div class="stat-card target-race">
+            <h3>Race Target</h3>
+            <p>10km in 65:00<br>6:30-6:45/km</p>
+        </div>
+        <div class="stat-card peak-fitness">
+            <h3>Peak Fitness</h3>
+            <p>CTL: 44 (Sep 14)<br>Ready to race</p>
+        </div>
+        <div class="stat-card race-day-form">
+            <h3>Race Day Form</h3>
+            <p>TSB: +15<br>Fresh & Fast</p>
+        </div>
+    </div>
+    
+    <div class="legend">
+        <div class="legend-item">
+            <div class="legend-color easy-run"></div>
+            <span>Easy/Recovery</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color tempo-run"></div>
+            <span>Tempo</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color speed-work"></div>
+            <span>Speed Work</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color long-run"></div>
+            <span>Long Run</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color race-day"></div>
+            <span>Race Day</span>
+        </div>
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Day</th>
+                <th>Workout</th>
+                <th>TSS</th>
+                <th>CTL</th>
+                <th>ATL</th>
+                <th>TSB</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Pre-Program -->
+            <tr style="background: #f0f4ff;">
+                <td class="date-col">Aug 28</td>
+                <td>Thu</td>
+                <td class="workout-col">
+                    <div class="easy-run">5km RPE 6<br><small>Moderate effort</small></div>
+                </td>
+                <td>38</td>
+                <td>36</td>
+                <td>43</td>
+                <td class="negative-tsb">-7</td>
+                <td>Pre-program run</td>
+            </tr>
+            <tr style="background: #f0f4ff;">
+                <td class="date-col">Aug 29</td>
+                <td>Fri</td>
+                <td class="workout-col"><div class="rest-day">Rest</div></td>
+                <td>0</td>
+                <td>36</td>
+                <td>39</td>
+                <td class="negative-tsb">-3</td>
+                <td>Recovery begins</td>
+            </tr>
+            <tr style="background: #f0f4ff;">
+                <td class="date-col">Aug 30</td>
+                <td>Sat</td>
+                <td class="workout-col"><div class="rest-day">Rest</div></td>
+                <td>0</td>
+                <td>35</td>
+                <td>35</td>
+                <td class="neutral-tsb">0</td>
+                <td>Balanced state</td>
+            </tr>
+            <tr style="background: #f0f4ff;">
+                <td class="date-col">Aug 31</td>
+                <td>Sun</td>
+                <td class="workout-col"><div class="rest-day">Rest</div></td>
+                <td>0</td>
+                <td>35</td>
+                <td>32</td>
+                <td class="positive-tsb">+3</td>
+                <td>Fresh to start</td>
+            </tr>
+            
+            <tr class="week-separator"><td colspan="8"></td></tr>
+            
+            <!-- Week 1 -->
+            <tr>
+                <td class="date-col">Sep 1</td>
+                <td>Mon</td>
+                <td class="workout-col">
+                    <div class="easy-run">Easy 5km<br><small>7:30-8:00/km</small></div>
+                </td>
+                <td>40</td>
+                <td>35</td>
+                <td>34</td>
+                <td class="positive-tsb">+1</td>
+                <td>Week 1 starts</td>
+            </tr>
+            <tr>
+                <td class="date-col">Sep 2</td>
+                <td>Tue</td>
+                <td class="workout-col"><div class="rest-day">Rest</div></td>
+                <td>0</td>
+                <td>35</td>
+                <td>31</td>
+                <td class="positive-tsb">+4</td>
+                <td>Active recovery</td>
+            </tr>
+            <tr>
+                <td class="date-col">Sep 3</td>
+                <td>Wed</td>
+                <td class="workout-col">
+                    <div class="tempo-run">Tempo Intervals<br><small>3×1km @ 6:30-6:40/km<br>90sec recovery</small></div>
+                </td>
+                <td>70</td>
+                <td>36</td>
+                <td>41</td>
+                <td class="negative-tsb">-5</td>
+                <td>First quality session</td>
+            </tr>
+            <tr>
+                <td class="date-col">Sep 4</td>
+                <td>Thu</td>
+                <td class="workout-col"><div class="rest-day">Rest</div></td>
+                <td>0</td>
+                <td>36</td>
+                <td>37</td>
+                <td class="negative-tsb">-1</td>
+                <td>Recovery</td>
+            </tr>
+            <tr>
+                <td class="date-col">Sep 5</td>
+                <td>Fri</td>
+                <td class="workout-col">
+                    <div class="easy-run">Recovery 4km<br><small>Easy pace</small></div>
+                </td>
+                <td>30</td>
+                <td>37</td>
+                <td>36</td>
+                <td class="positive-tsb">+1</td>
+                <td>Light recovery</td>
+            </tr>
+            <tr>
+                <td class="date-col">Sep 6</td>
+                <td>Sat</td>
+                <td class="workout-col"><div class="rest-day">Rest</div></td>
+                <td>0</td>
+                <td>37</td>
+                <td>33</td>
+                <td class="positive-tsb">+4</td>
+                <td>Pre-long run</td>
+            </tr>
+            <tr>
+                <td class="date-col">Sep 7</td>
+                <td>Sun</td>
+                <td class="workout-col">
+                    <div class="long-run">Progressive 8km<br><small>Start easy, finish moderate</small></div>
+                </td>
+                <td>75</td>
+                <td>38</td>
+                <td>43</td>
+                <td class="negative-tsb">-5</td>
+                <td>Build aerobic base</td>
+            </tr>
+            
+            <tr class="week-separator"><td colspan="8"></td></tr>
+            
+            <!-- Week 2 -->
+            <tr>
+                <td class="date-col">Sep 8</td>
+                <td>Mon</td>
+                <td class="workout-col">
+                    <div class="easy-run">Easy 5km<br><small>7:30-8:00/km</small></div>
+                </td>
+                <td>40</td>
+                <td>38</td>
+                <td>42</td>
+                <td class="negative-tsb">-4</td>
+                <td>Week 2 begins</td>
+            </tr>
+            <tr>
+                <td class="date-col">Sep 9</td>
+                <td>Tue</td>
+                <td class="workout-col">
+                    <div class="speed-work">Speed Work<br><small>5×800m @ 6:00-6:15/km<br>2min recovery</small></div>
+                </td>
+                <td>80</td>
+                <td>40</td>
+                <td>50</td>
+                <td class="negative-tsb">-10</td>
+                <td>Build speed</td>
+            </tr>
+            <tr>
+                <td class="date-col">Sep 10</td>
+                <td>Wed</td>
+                <td class="workout-col"><div class="rest-day">Rest</div></td>
+                <td>0</td>
+                <td>40</td>
+                <td>45</td>
+                <td class="negative-tsb">-5</td>
+                <td>Absorb training</td>
+            </tr>
+            <tr>
+                <td class="date-col">Sep 11</td>
+                <td>Thu</td>
+                <td class="workout-col">
+                    <div class="tempo-run">Tempo 20min<br><small>@ 6:20-6:30/km<br>(~5km total)</small></div>
+                </td>
+                <td>75</td>
+                <td>41</td>
+                <td>52</td>
+                <td class="negative-tsb">-11</td>
+                <td>Peak load week</td>
+            </tr>
+            <tr>
+                <td class="date-col">Sep 12</td>
+                <td>Fri</td>
+                <td class="workout-col"><div class="rest-day">Rest</div></td>
+                <td>0</td>
+                <td>41</td>
+                <td>47</td>
+                <td class="negative-tsb">-6</td>
+                <td>Recovery</td>
+            </tr>
+            <tr>
+                <td class="date-col">Sep 13</td>
+                <td>Sat</td>
+                <td class="workout-col">
+                    <div class="easy-run">Recovery 4km<br><small>Easy pace</small></div>
+                </td>
+                <td>30</td>
+                <td>42</td>
+                <td>45</td>
+                <td class="negative-tsb">-3</td>
+                <td>Pre-race sim</td>
+            </tr>
+            <tr>
+                <td class="date-col">Sep 14</td>
+                <td>Sun</td>
+                <td class="workout-col">
+                    <div class="long-run">Race Sim 10km<br><small>6km easy + 4km race effort</small></div>
+                </td>
+                <td>90</td>
+                <td>44</td>
+                <td>55</td>
+                <td class="negative-tsb">-11</td>
+                <td>🔥 Peak fitness</td>
+            </tr>
+            
+            <tr class="week-separator"><td colspan="8"></td></tr>
+            
+            <!-- Week 3 -->
+            <tr>
+                <td class="date-col">Sep 15</td>
+                <td>Mon</td>
+                <td class="workout-col">
+                    <div class="easy-run">Easy 4km<br><small>7:30-8:00/km</small></div>
+                </td>
+                <td>35</td>
+                <td>44</td>
+                <td>52</td>
+                <td class="negative-tsb">-8</td>
+                <td>Taper starts</td>
+            </tr>
+            <tr>
+                <td class="date-col">Sep 16</td>
+                <td>Tue</td>
+                <td class="workout-col"><div class="rest-day">Rest</div></td>
+                <td>0</td>
+                <td>44</td>
+                <td>47</td>
+                <td class="negative-tsb">-3</td>
+                <td>Fatigue dropping</td>
+            </tr>
+            <tr>
+                <td class="date-col">Sep 17</td>
+                <td>Wed</td>
+                <td class="workout-col">
+                    <div class="tempo-run">Race Prep<br><small>3×1km @ 6:30-6:45/km<br>Full recovery</small></div>
+                </td>
+                <td>55</td>
+                <td>45</td>
+                <td>49</td>
+                <td class="negative-tsb">-4</td>
+                <td>Race pace practice</td>
+            </tr>
+            <tr>
+                <td class="date-col">Sep 18</td>
+                <td>Thu</td>
+                <td class="workout-col"><div class="rest-day">Rest</div></td>
+                <td>0</td>
+                <td>45</td>
+                <td>44</td>
+                <td class="positive-tsb">+1</td>
+                <td>Getting fresh</td>
+            </tr>
+            <tr>
+                <td class="date-col">Sep 19</td>
+                <td>Fri</td>
+                <td class="workout-col">
+                    <div class="easy-run">Shakeout 3km<br><small>Easy pace</small></div>
+                </td>
+                <td>25</td>
+                <td>45</td>
+                <td>42</td>
+                <td class="positive-tsb">+3</td>
+                <td>Keep moving</td>
+            </tr>
+            <tr>
+                <td class="date-col">Sep 20</td>
+                <td>Sat</td>
+                <td class="workout-col"><div class="rest-day">Rest</div></td>
+                <td>0</td>
+                <td>45</td>
+                <td>38</td>
+                <td class="positive-tsb">+7</td>
+                <td>Final rest</td>
+            </tr>
+            <tr>
+                <td class="date-col">Sep 21</td>
+                <td>Sun</td>
+                <td class="workout-col">
+                    <div class="easy-run">Easy 6km + strides<br><small>3×30sec strides</small></div>
+                </td>
+                <td>45</td>
+                <td>45</td>
+                <td>41</td>
+                <td class="positive-tsb">+4</td>
+                <td>Maintain sharpness</td>
+            </tr>
+            
+            <tr class="week-separator"><td colspan="8"></td></tr>
+            
+            <!-- Race Week -->
+            <tr>
+                <td class="date-col">Sep 22</td>
+                <td>Mon</td>
+                <td class="workout-col">
+                    <div class="easy-run">Easy 3km<br><small>Very relaxed</small></div>
+                </td>
+                <td>25</td>
+                <td>45</td>
+                <td>38</td>
+                <td class="positive-tsb">+7</td>
+                <td>Race week begins</td>
+            </tr>
+            <tr>
+                <td class="date-col">Sep 23</td>
+                <td>Tue</td>
+                <td class="workout-col"><div class="rest-day">Rest</div></td>
+                <td>0</td>
+                <td>45</td>
+                <td>34</td>
+                <td class="positive-tsb">+11</td>
+                <td>Getting fresher</td>
+            </tr>
+            <tr>
+                <td class="date-col">Sep 24</td>
+                <td>Wed</td>
+                <td class="workout-col">
+                    <div class="easy-run">Easy 3km + strides<br><small>4×15sec strides</small></div>
+                </td>
+                <td>30</td>
+                <td>45</td>
+                <td>34</td>
+                <td class="positive-tsb">+11</td>
+                <td>Race prep activation</td>
+            </tr>
+            <tr>
+                <td class="date-col">Sep 25</td>
+                <td>Thu</td>
+                <td class="workout-col"><div class="rest-day">Rest</div></td>
+                <td>0</td>
+                <td>45</td>
+                <td>31</td>
+                <td class="positive-tsb">+14</td>
+                <td>Almost peak fresh</td>
+            </tr>
+            <tr>
+                <td class="date-col">Sep 26</td>
+                <td>Fri</td>
+                <td class="workout-col">
+                    <div class="easy-run">Shakeout 2km<br><small>+ 2×30sec race pace</small></div>
+                </td>
+                <td>20</td>
+                <td>45</td>
+                <td>30</td>
+                <td class="positive-tsb">+15</td>
+                <td>🎯 Peak freshness!</td>
+            </tr>
+            <tr style="background: #fff5f5;">
+                <td class="date-col"><strong>Sep 27</strong></td>
+                <td><strong>SAT</strong></td>
+                <td class="workout-col">
+                    <div class="race-day">🏆 RACE DAY 🏆<br>10km Target: Sub-65min<br><small>Negative split strategy</small></div>
+                </td>
+                <td>95</td>
+                <td>45</td>
+                <td>49</td>
+                <td class="negative-tsb">-4</td>
+                <td>🚀 GO TIME!</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="section">
+        <h2>📊 Key Performance Metrics</h2>
+        <div style="background: #f8f9ff; padding: 20px; border-radius: 10px; border-left: 5px solid #667eea;">
+            <p><strong>Peak Fitness:</strong> Sep 14 (CTL: 44)</p>
+            <p><strong>Peak Fatigue:</strong> Sep 14 (ATL: 55, TSB: -11)</p>
+            <p><strong>Race Day Freshness:</strong> TSB +15 (PERFECT!)</p>
+            <p><strong>Fitness Maintained:</strong> CTL stays at 45 for race</p>
+            <p><strong>ATL/CTL Ratio:</strong> Peaks at 1.25, drops to 0.67 for race day</p>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>🎯 Race Day Pacing Strategy</h2>
+        <div style="background: linear-gradient(135deg, #FF6B6B 0%, #FFE66D 100%); color: white; padding: 20px; border-radius: 10px;">
+            <p><strong>Km 1-3:</strong> 6:45-6:50/km (conservative start)</p>
+            <p><strong>Km 4-7:</strong> 6:30-6:40/km (settle into rhythm)</p>
+            <p><strong>Km 8-10:</strong> 6:15-6:30/km (strong finish)</p>
+        </div>
+    </div>
+</div>
+```
+
+</body>
+</html>
